@@ -1,0 +1,19 @@
+@import "../../styles/helpers/variables";
+
+.page {
+    height: 100%;
+    min-height: 100vh;
+
+    &__body {
+        max-width: $container-size;
+        margin: 0 auto;
+
+        &--large {
+            max-width: $large-container-size;
+        }
+
+        &--unrestricted {
+            max-width: 100%;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.paper {
+    border-radius: 0.625rem;
+    background-color: var(--c-secondary);
+    margin: 0.625rem;
+}
+
+.cancelButton {
+    background-color: transparent;
+}
+
+.confirmButton {
+    background-color: var(--c-confirm-button);
+}

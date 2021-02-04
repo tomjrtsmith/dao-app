@@ -1,0 +1,13 @@
+.button {
+    padding: 0.2rem 1rem;
+    background-color: var(--c-tertiary);
+    color: var(--c-white);
+    font-size: 1rem;
+    font-weight: normal;
+    border-radius: 0.5rem;
+    text-transform: none;
+
+    & :global(.MuiButton-root) {
+        background-color: orange;
+    }
+}

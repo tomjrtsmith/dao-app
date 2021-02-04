@@ -1,0 +1,12 @@
+{
+    "global.appName": "Flux DAO",
+
+    "resoluteMarketForm.input.validMarket": "Valid",
+    "resoluteMarketForm.input.invalidMarket": "Invalid",
+
+    "resoluteMarketForm.input.marketId": "Market id",
+    "resoluteMarketForm.input.payoutNumerator": "Payout numerator",
+    "resoluteMarketForm.input.payoutNumeratorHelper": "Seperate percentages with a space example: 50 0 50",
+
+    "proposalDialog.title": "Create a proposal"
+}
