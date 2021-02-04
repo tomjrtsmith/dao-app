@@ -33,3 +33,17 @@ export function loadProposals() {
         dispatch(setProposalsLoading(false));
     }
 }
+
+export function voteYes(proposalId: string) {
+    return async (dispatch: Function) => {
+        const contract = await createDaoContract();
+        contract.vote(proposalId, 'Yes');
+    }
+}
+
+export function voteNo(proposalId: string) {
+    return async (dispatch: Function) => {
+        const contract = await createDaoContract();
+        contract.vote(proposalId, 'No');
+    }
+}

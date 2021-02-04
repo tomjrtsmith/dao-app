@@ -1,3 +1,4 @@
+import BN from "bn.js";
 import { Account, Contract } from "near-api-js";
 import { DAO_ACCOUNT_ID, MAX_GAS, STORAGE_BASE } from "../../config";
 import { Proposal } from "../../models/Proposal";
@@ -9,7 +10,7 @@ class DaoContract {
     constructor(account: Account) {
         this.contract = new Contract(account, DAO_ACCOUNT_ID, {
             viewMethods: ['get_council', 'get_bond', 'get_proposals'],
-            changeMethods: ['add_proposal'],
+            changeMethods: ['add_proposal', 'vote'],
         });
     }
 
@@ -50,7 +51,16 @@ class DaoContract {
             }
         }, MAX_GAS, STORAGE_BASE);
     }
+
+    vote(proposalId: string, vote: 'Yes' | 'No') {
+        // @ts-ignore
+        this.contract.vote({
+            id: proposalId,
+            vote,
+        }, MAX_GAS, new BN(0));
+    }
 }
+
 
 let daoInstance: DaoContract;
 

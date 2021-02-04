@@ -27,6 +27,7 @@ export default function trans(key: string, attributes?: Attributes, uppercaseFir
     const result: string = translations[key];
 
     if (!result) {
+        console.info('Transaltion not found for', key)
         return key;
     }
 

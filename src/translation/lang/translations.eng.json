@@ -1,5 +1,17 @@
 {
     "global.appName": "Flux DAO",
+    
+    "global.action.cancel": "Cancel",
+    "global.action.submit": "Submit",
+
+    "home.title": "Proposals",
+
+    "menu.loggedInAs": "Hello :accountId",
+    "menu.logout": "Logout",
+    "menu.item.home": "Home",
+    "menu.item.council": "Council",
+
+    "council.title": "Council",
 
     "resoluteMarketForm.input.validMarket": "Valid",
     "resoluteMarketForm.input.invalidMarket": "Invalid",
@@ -8,5 +20,16 @@
     "resoluteMarketForm.input.payoutNumerator": "Payout numerator",
     "resoluteMarketForm.input.payoutNumeratorHelper": "Seperate percentages with a space example: 50 0 50",
 
-    "proposalDialog.title": "Create a proposal"
+    "proposalInfo.label.status": "Status: :status",
+    "proposalInfo.label.creator": "Creator: :creator",
+    "proposalInfo.label.votePeriodEnd": "Vote period end: :date",
+    "proposalInfo.action.voteYes": "Yes (:amount)",
+    "proposalInfo.action.voteNo": "No (:amount)",
+
+    "proposalsOverview.create": "Create proposal",
+
+    "proposal.resoluteMarket.description": "Resolute market",
+
+    "proposalDialog.title": "Create a proposal",
+    "proposalDialog.types.resoluteMarket": "Resolute market"
 }
