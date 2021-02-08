@@ -30,5 +30,7 @@ export interface Proposal {
     vote_period_end: number;
     vote_yes: number;
     vote_no: number;
-    votes: Map<string, Vote>;
+    votes: {
+        [key: string]: Vote;
+    };
 }

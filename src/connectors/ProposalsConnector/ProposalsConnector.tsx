@@ -12,6 +12,7 @@ export default function ProposalsConnector() {
     const proposals = useSelector((store: Reducers) => store.proposals.proposals);
     const hasMoreProposals = useSelector((store: Reducers) => store.proposals.hasMoreProposals);
     const markets = useSelector((store: Reducers) => store.proposals.expiredMarkets);
+    const loggedInAccount = useSelector((store: Reducers) => store.account.account);
 
     useEffect(() => {
         dispatch(loadProposals(true));
@@ -49,6 +50,7 @@ export default function ProposalsConnector() {
             onFinalizeClick={handleFinalizeClick}
             hasMoreProposals={hasMoreProposals}
             onRequestMoreProposals={handleRequestMoreProposals}
+            loggedInAccount={loggedInAccount}
         />
     );
 }

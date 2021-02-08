@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { MarketViewModel } from '../../models/Market';
+import { Account } from '../../models/Account';
 import { Proposal } from '../../models/Proposal';
 import { ProposalFormValues } from '../../services/ProposalsService';
 import trans from '../../translation/trans';
@@ -10,6 +11,7 @@ import ProposalInfo from '../ProposalInfo';
 interface Props {
     onProposalSubmit: (values: ProposalFormValues) => void;
     proposals: Proposal[];
+    loggedInAccount: Account | null;
     markets: MarketViewModel[];
     hasMoreProposals: boolean;
     onRequestMoreProposals: () => void;
@@ -28,6 +30,7 @@ export default function ProposalsOverview({
     hasMoreProposals,
     proposals,
     markets,
+    loggedInAccount,
 }: Props) {
     const [isOpen, setOpen] = useState(false);
 
@@ -52,6 +55,7 @@ export default function ProposalsOverview({
                         onNoClick={() => onNoClick(proposal, index)}
                         onYesClick={() => onYesClick(proposal, index)}
                         onFinalizeClick={() => onFinalizeClick(proposal, index)}
+                        loggedInAccount={loggedInAccount}
                     />
                 ))}
             </InfiniteScroll>
