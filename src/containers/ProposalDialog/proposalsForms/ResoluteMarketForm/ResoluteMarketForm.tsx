@@ -1,3 +1,4 @@
+import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
@@ -32,17 +33,22 @@ export default function ResoluteMarketForm({
             ...values,
             marketId: market?.id || '',
             marketDescription: market?.description || '',
+            payoutNumerators: market?.outcomeTags.map(_ => 0) || [],
         });
     }
 
-    function handlePayoutNumeratorChange(event: ChangeEvent<HTMLInputElement>) {
+    function handlePayoutNumeratorsChange(amount: string, index: number) {
+        const newPayoutNumerators = values.payoutNumerators;
+        newPayoutNumerators[index] = Number(amount);
+
         onChange({
             ...values,
-            payoutNumerator: event.currentTarget.value,
+            payoutNumerators: newPayoutNumerators,
         });
     }
 
     const selectedMarket = markets.find(market => market.id === values.marketId);
+    const percentagesTogether = values.payoutNumerators.reduce((prev, current) => prev + current, 0);
 
     return (
         <div>
@@ -65,23 +71,31 @@ export default function ResoluteMarketForm({
             />
             <div>
                 {!values.isInvalidMarket && (
-                    <>
-                        <div>
-                            {selectedMarket?.outcomeTags.map((outcome, index) => (
-                                <div key={index}>
-                                    <span>{index}</span>
-                                    <span>{outcome}</span>
-                                </div>
-                            ))}
-                        </div>
-                        <TextField
-                            helperText={trans('resoluteMarketForm.input.payoutNumeratorHelper')}
-                            label={trans('resoluteMarketForm.input.payoutNumerator')} 
-                            onChange={handlePayoutNumeratorChange}
-                            value={values.payoutNumerator}
-                        />
-                    </>
+                    <div>
+                        {selectedMarket?.outcomeTags.map((outcome, index) => (
+                            <div key={index}>
+                                <TextField 
+                                    label={outcome}
+                                    onChange={(event) => handlePayoutNumeratorsChange(event.target.value, index)}
+                                    value={values.payoutNumerators[index] || '0'}
+                                    type="number"
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <span>%</span>
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                            </div>
+                        ))}
+
+                        {percentagesTogether !== 100 && (
+                            <p>{trans('resoluteMarketForm.error.not100')}</p>
+                        )}
+                    </div>
                 )}
+
             </div>
         </div>
     );

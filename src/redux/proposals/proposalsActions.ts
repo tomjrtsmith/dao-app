@@ -1,7 +1,7 @@
 import { ProposalKindType } from "../../models/Proposal";
 import createDaoContract from "../../services/contract/DaoContract";
 import { getExpiredMarkets } from "../../services/MarketService";
-import { payoutNumeratorStringToPercentages, percentagesToDenom, ProposalFormValues } from "../../services/ProposalsService";
+import { percentagesToDenom, ProposalFormValues } from "../../services/ProposalsService";
 import trans from "../../translation/trans";
 import { Reducers } from "../reducers";
 import { setProposals, setProposalsExpiredMarkets, setProposalsHasMore, setProposalsLoading } from "./proposals";
@@ -11,8 +11,7 @@ export function createProposal(values: ProposalFormValues) {
         const contract = await createDaoContract();
         
         if (values.type === ProposalKindType.ResoluteMarket) {
-            const percentagePayout = payoutNumeratorStringToPercentages(values.resoluteMarket.payoutNumerator);
-            const percentagesInToken = percentagesToDenom(percentagePayout);
+            const percentagesInToken = percentagesToDenom(values.resoluteMarket.payoutNumerators);
 
             contract.createResoluteMarketProposal(
                 trans('proposal.resoluteMarket.description', {
