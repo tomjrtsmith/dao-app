@@ -65,6 +65,19 @@ class DaoContract {
         }, MAX_GAS, STORAGE_BASE);
     }
 
+    async createAddTokenToWhitelistProposal(description: string, accountId: string) {
+        // @ts-ignore
+        this.contract.add_proposal({
+            proposal: {
+                description,
+                kind: {
+                    to_add: accountId,
+                    type: 'AddTokenWhitelist',
+                }
+            }
+        }, MAX_GAS, STORAGE_BASE);
+    }
+
     vote(proposalId: string, vote: 'Yes' | 'No') {
         // @ts-ignore
         this.contract.vote({

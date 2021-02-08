@@ -11,6 +11,7 @@ import { ResoluteMarketFormValues } from './services/createDefaultResoluteMarket
 import { ProposalFormValues } from '../../services/ProposalsService';
 import { MarketViewModel } from '../../models/Market';
 import NewCouncilForm from './proposalsForms/NewCouncilForm';
+import AddTokenWhitelist from './proposalsForms/AddTokenWhitelist';
 
 interface Props {
     open: boolean;
@@ -48,6 +49,13 @@ export default function ProposalDialog({
         });
     }
 
+    function handleAddTokenWhitelistChange(addTokenWhitelist: NewCouncilFormValues) {
+        setFormValues({
+            ...formValues,
+            addTokenWhitelist,
+        });
+    }
+
     return (
         <Dialog 
             open={open} 
@@ -58,6 +66,7 @@ export default function ProposalDialog({
             <Select value={formValues.type} onChange={handleSelectChange}>
                 <MenuItem value={ProposalKindType.ResoluteMarket}>{trans('proposalDialog.types.resoluteMarket')}</MenuItem>
                 <MenuItem value={ProposalKindType.NewCouncil}>{trans('proposalDialog.types.newCouncil')}</MenuItem>
+                <MenuItem value={ProposalKindType.AddTokenWhitelist}>{trans('proposalDialog.types.addTokenWhitelist')}</MenuItem>
             </Select>
 
             {formValues.type === ProposalKindType.ResoluteMarket && (
@@ -72,6 +81,13 @@ export default function ProposalDialog({
                 <NewCouncilForm
                     values={formValues.newCouncil}
                     onChange={handleNewCouncilChange}
+                />
+            )}
+
+            {formValues.type === ProposalKindType.AddTokenWhitelist && (
+                <AddTokenWhitelist 
+                    values={formValues.addTokenWhitelist}
+                    onChange={handleAddTokenWhitelistChange}
                 />
             )}
         </Dialog>

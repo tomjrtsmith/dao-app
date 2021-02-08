@@ -22,6 +22,8 @@ export function createProposal(values: ProposalFormValues) {
             );
         } else if (values.type === ProposalKindType.NewCouncil) {
             contract.createNewCouncilProposal(values.newCouncil.description, values.newCouncil.accountId);
+        } else if (values.type === ProposalKindType.AddTokenWhitelist) {
+            contract.createAddTokenToWhitelistProposal(values.addTokenWhitelist.description, values.addTokenWhitelist.accountId);
         }
     }
 }

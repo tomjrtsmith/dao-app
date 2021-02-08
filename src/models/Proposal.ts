@@ -3,6 +3,7 @@ import { Vote } from "./Vote"
 export enum ProposalKindType {
     ResoluteMarket = 'ResoluteMarket',
     NewCouncil = 'NewCouncil',
+    AddTokenWhitelist = 'AddTokenWhitelist',
 }
 
 export enum ProposalStatus {
