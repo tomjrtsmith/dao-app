@@ -10,7 +10,7 @@ class DaoContract {
     constructor(account: Account) {
         this.contract = new Contract(account, DAO_ACCOUNT_ID, {
             viewMethods: ['get_council', 'get_bond', 'get_proposals'],
-            changeMethods: ['add_proposal', 'vote'],
+            changeMethods: ['add_proposal', 'vote', 'finalize'],
         });
     }
 
@@ -38,13 +38,13 @@ class DaoContract {
         return result;
     }
 
-    async createResoluteMarketProposal(description: string, marketId: number, payoutNumerator?: string[]) {
+    async createResoluteMarketProposal(description: string, marketId: string, payoutNumerator?: string[]) {
         // @ts-ignore
         this.contract.add_proposal({
             proposal: {
                 description,
                 kind: {
-                    market_id: marketId.toString(),
+                    market_id: marketId,
                     payout_numerator: payoutNumerator,
                     type: 'ResoluteMarket',
                 }
@@ -57,6 +57,13 @@ class DaoContract {
         this.contract.vote({
             id: proposalId,
             vote,
+        }, MAX_GAS, new BN(0));
+    }
+
+    finalize(proposalId: string) {
+        // @ts-ignore
+        this.contract.finalize({
+            id: proposalId,
         }, MAX_GAS, new BN(0));
     }
 }

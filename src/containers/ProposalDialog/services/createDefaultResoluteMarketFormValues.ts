@@ -1,13 +1,15 @@
 export interface ResoluteMarketFormValues {
     isInvalidMarket: boolean;
-    marketId: number;
+    marketId: string;
+    marketDescription: string;
     payoutNumerator: string;
 }
 
 export default function createDefaultResoluteMarketFormValues(): ResoluteMarketFormValues {
     return {
         isInvalidMarket: false,
-        marketId: 0,
+        marketId: '',
+        marketDescription: '',
         payoutNumerator: '',
     };
 }

@@ -5,26 +5,36 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { Proposal } from '../../models/Proposal';
+import { Proposal, ProposalKindType, ProposalStatus } from '../../models/Proposal';
 import Button from '../../components/Button';
 import trans from '../../translation/trans';
+import { FLUX_MARKET_DETAIL_URL } from '../../config';
 
 interface Props {
     proposal: Proposal;
     onYesClick: () => void;
     onNoClick: () => void;
+    onFinalizeClick: () => void;
 }
 
 export default function ProposalInfo({
     proposal,
     onNoClick,
     onYesClick,
+    onFinalizeClick,
 }: Props) {
     const date = new Date(proposal.vote_period_end / 1000000);
 
+    function handleCardClick() {
+        if (proposal.kind.type === ProposalKindType.ResoluteMarket) {
+            // @ts-ignore
+            window.open(`${FLUX_MARKET_DETAIL_URL}${proposal.kind.market_id}`, '_blank');
+        }
+    }
+
     return (
         <Card>
-            <CardActionArea>
+            <CardActionArea onClick={handleCardClick}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                         {proposal.description}
@@ -50,16 +60,26 @@ export default function ProposalInfo({
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button onClick={onYesClick}>
-                    {trans('proposalInfo.action.voteYes', {
-                        amount: proposal.vote_yes.toString(),
-                    })}
-                </Button>
-                <Button onClick={onNoClick}>
-                    {trans('proposalInfo.action.voteNo', {
-                        amount: proposal.vote_no.toString(),
-                    })}
-                </Button>
+                {proposal.status === ProposalStatus.Vote && (
+                    <>
+                        <Button onClick={onYesClick}>
+                            {trans('proposalInfo.action.voteYes', {
+                                amount: proposal.vote_yes.toString(),
+                            })}
+                        </Button>
+                        <Button onClick={onNoClick}>
+                            {trans('proposalInfo.action.voteNo', {
+                                amount: proposal.vote_no.toString(),
+                            })}
+                        </Button>
+                    </>
+                )}
+
+                {proposal.status === ProposalStatus.Success && (
+                    <Button onClick={onFinalizeClick}>
+                        {trans('proposalInfo.action.finalize')}
+                    </Button>
+                )}
             </CardActions>
         </Card>
     );

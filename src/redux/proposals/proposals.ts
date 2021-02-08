@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Account } from '../../models/Account';
+import { MarketViewModel } from '../../models/Market';
 import { Proposal } from '../../models/Proposal';
 
 export type ProposalsState = Readonly<{
     proposals: Proposal[];
+    expiredMarkets: MarketViewModel[];
     loading: boolean;
     errors: string[];
 }>;
 
 const initialState: ProposalsState = {
     proposals: [],
+    expiredMarkets: [],
     loading: false,
     errors: [],
 };
@@ -36,6 +38,12 @@ const proposalsSlice = createSlice({
                 errors: action.payload,
             });
         },
+        setProposalsExpiredMarkets(state: ProposalsState, action: PayloadAction<MarketViewModel[]>): ProposalsState {
+            return ({
+                ...state,
+                expiredMarkets: action.payload,
+            });
+        },
     },
 });
 
@@ -43,6 +51,7 @@ export const {
     setProposals,
     setProposalsLoading,
     setProposalsErrors,
+    setProposalsExpiredMarkets,
 } = proposalsSlice.actions;
 
 export default proposalsSlice.reducer;

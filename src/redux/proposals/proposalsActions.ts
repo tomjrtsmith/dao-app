@@ -1,8 +1,9 @@
 import { ProposalFormKind } from "../../models/Proposal";
 import createDaoContract from "../../services/contract/DaoContract";
+import { getExpiredMarkets } from "../../services/MarketService";
 import { payoutNumeratorStringToPercentages, percentagesToDenom, ProposalFormValues } from "../../services/ProposalsService";
 import trans from "../../translation/trans";
-import { setProposals, setProposalsLoading } from "./proposals";
+import { setProposals, setProposalsExpiredMarkets, setProposalsLoading } from "./proposals";
 
 export function createProposal(values: ProposalFormValues) {
     return async (dispatch: Function) => {
@@ -13,7 +14,9 @@ export function createProposal(values: ProposalFormValues) {
             const percentagesInToken = percentagesToDenom(percentagePayout);
 
             contract.createResoluteMarketProposal(
-                trans('proposal.resoluteMarket.description'),
+                trans('proposal.resoluteMarket.description', {
+                    description: values.resoluteMarket.marketDescription,
+                }),
                 values.resoluteMarket.marketId, 
                 values.resoluteMarket.isInvalidMarket ? undefined : percentagesInToken
             );
@@ -34,6 +37,13 @@ export function loadProposals() {
     }
 }
 
+export function loadExpiredMarkets() {
+    return async (dispatch: Function) => {
+        const markets = await getExpiredMarkets();
+        dispatch(setProposalsExpiredMarkets(markets));
+    }
+}
+
 export function voteYes(proposalId: string) {
     return async (dispatch: Function) => {
         const contract = await createDaoContract();
@@ -45,5 +55,12 @@ export function voteNo(proposalId: string) {
     return async (dispatch: Function) => {
         const contract = await createDaoContract();
         contract.vote(proposalId, 'No');
+    }
+}
+
+export function finalizeProposal(proposalId: string) {
+    return async (dispatch: Function) => {
+        const contract = await createDaoContract();
+        contract.finalize(proposalId);
     }
 }

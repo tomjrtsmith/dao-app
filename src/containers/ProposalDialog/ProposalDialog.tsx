@@ -9,15 +9,18 @@ import { ProposalFormKind } from '../../models/Proposal';
 import createDefaultProposalFormValues from './services/createDefaultProposalFormValues';
 import { ResoluteMarketFormValues } from './services/createDefaultResoluteMarketFormValues';
 import { ProposalFormValues } from '../../services/ProposalsService';
+import { MarketViewModel } from '../../models/Market';
 
 interface Props {
     open: boolean;
+    markets: MarketViewModel[];
     onRequestClose: () => void;
     onSubmit: (value: ProposalFormValues) => void;
 }
 
 export default function ProposalDialog({
     open,
+    markets,
     onRequestClose,
     onSubmit,
 }: Props) {
@@ -48,6 +51,7 @@ export default function ProposalDialog({
 
             {type === ProposalFormKind.ResoluteMarket && (
                 <ResoluteMarketForm
+                    markets={markets}
                     values={formValues.resoluteMarket}
                     onChange={handleResoluteMarketChange}
                 />
