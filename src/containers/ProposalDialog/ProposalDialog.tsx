@@ -5,11 +5,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '../../compositions/Dialog';
 import trans from '../../translation/trans';
 import ResoluteMarketForm from './proposalsForms/ResoluteMarketForm';
-import { ProposalFormKind } from '../../models/Proposal';
-import createDefaultProposalFormValues from './services/createDefaultProposalFormValues';
+import { ProposalKindType } from '../../models/Proposal';
+import createDefaultProposalFormValues, { NewCouncilFormValues } from './services/createDefaultProposalFormValues';
 import { ResoluteMarketFormValues } from './services/createDefaultResoluteMarketFormValues';
 import { ProposalFormValues } from '../../services/ProposalsService';
 import { MarketViewModel } from '../../models/Market';
+import NewCouncilForm from './proposalsForms/NewCouncilForm';
 
 interface Props {
     open: boolean;
@@ -24,17 +25,26 @@ export default function ProposalDialog({
     onRequestClose,
     onSubmit,
 }: Props) {
-    const [type, setType] = useState(ProposalFormKind.ResoluteMarket);
     const [formValues, setFormValues] = useState(createDefaultProposalFormValues());
 
     function handleSelectChange(event: ChangeEvent<{name?: string, value: unknown}>) {
-        setType(event.currentTarget.value as ProposalFormKind);
+        setFormValues({
+            ...formValues,
+            type: event.target.value as ProposalKindType
+        });
     }
 
     function handleResoluteMarketChange(resoluteMarket: ResoluteMarketFormValues) {
         setFormValues({
             ...formValues,
             resoluteMarket,
+        });
+    }
+
+    function handleNewCouncilChange(newCouncil: NewCouncilFormValues) {
+        setFormValues({
+            ...formValues,
+            newCouncil,
         });
     }
 
@@ -45,15 +55,23 @@ export default function ProposalDialog({
             onSubmitClick={() => onSubmit(formValues)}
             onRequestClose={onRequestClose}
         >
-            <Select value={type} onChange={handleSelectChange}>
-                <MenuItem value={ProposalFormKind.ResoluteMarket}>{trans('proposalDialog.types.resoluteMarket')}</MenuItem>
+            <Select value={formValues.type} onChange={handleSelectChange}>
+                <MenuItem value={ProposalKindType.ResoluteMarket}>{trans('proposalDialog.types.resoluteMarket')}</MenuItem>
+                <MenuItem value={ProposalKindType.NewCouncil}>{trans('proposalDialog.types.newCouncil')}</MenuItem>
             </Select>
 
-            {type === ProposalFormKind.ResoluteMarket && (
+            {formValues.type === ProposalKindType.ResoluteMarket && (
                 <ResoluteMarketForm
                     markets={markets}
                     values={formValues.resoluteMarket}
                     onChange={handleResoluteMarketChange}
+                />
+            )}
+
+            {formValues.type === ProposalKindType.NewCouncil && (
+                <NewCouncilForm
+                    values={formValues.newCouncil}
+                    onChange={handleNewCouncilChange}
                 />
             )}
         </Dialog>

@@ -1,4 +1,4 @@
-import { ProposalFormKind } from "../../models/Proposal";
+import { ProposalKindType } from "../../models/Proposal";
 import createDaoContract from "../../services/contract/DaoContract";
 import { getExpiredMarkets } from "../../services/MarketService";
 import { payoutNumeratorStringToPercentages, percentagesToDenom, ProposalFormValues } from "../../services/ProposalsService";
@@ -9,7 +9,7 @@ export function createProposal(values: ProposalFormValues) {
     return async (dispatch: Function) => {
         const contract = await createDaoContract();
         
-        if (values.type === ProposalFormKind.ResoluteMarket) {
+        if (values.type === ProposalKindType.ResoluteMarket) {
             const percentagePayout = payoutNumeratorStringToPercentages(values.resoluteMarket.payoutNumerator);
             const percentagesInToken = percentagesToDenom(percentagePayout);
 
@@ -20,6 +20,8 @@ export function createProposal(values: ProposalFormValues) {
                 values.resoluteMarket.marketId, 
                 values.resoluteMarket.isInvalidMarket ? undefined : percentagesInToken
             );
+        } else if (values.type === ProposalKindType.NewCouncil) {
+            contract.createNewCouncilProposal(values.newCouncil.description, values.newCouncil.accountId);
         }
     }
 }

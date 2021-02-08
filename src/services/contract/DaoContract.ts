@@ -52,6 +52,19 @@ class DaoContract {
         }, MAX_GAS, STORAGE_BASE);
     }
 
+    async createNewCouncilProposal(description: string, accountId: string) {
+        // @ts-ignore
+        this.contract.add_proposal({
+            proposal: {
+                description,
+                kind: {
+                    target: accountId,
+                    type: 'NewCouncil',
+                }
+            }
+        }, MAX_GAS, STORAGE_BASE);
+    }
+
     vote(proposalId: string, vote: 'Yes' | 'No') {
         // @ts-ignore
         this.contract.vote({

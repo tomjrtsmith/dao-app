@@ -1,11 +1,13 @@
 import Big from 'big.js';
+import { NewCouncilFormValues } from '../containers/ProposalDialog/services/createDefaultProposalFormValues';
 
 import { ResoluteMarketFormValues } from "../containers/ProposalDialog/services/createDefaultResoluteMarketFormValues";
-import { ProposalFormKind } from "../models/Proposal";
+import { ProposalKindType } from "../models/Proposal";
 
 export interface ProposalFormValues {
+    newCouncil: NewCouncilFormValues;
     resoluteMarket: ResoluteMarketFormValues;
-    type: ProposalFormKind;
+    type: ProposalKindType;
 }
 
 export function fetchProposals() {

@@ -1,11 +1,8 @@
 import { Vote } from "./Vote"
 
-export enum ProposalFormKind {
-    ResoluteMarket
-}
-
 export enum ProposalKindType {
-    ResoluteMarket = 'ResoluteMarket'
+    ResoluteMarket = 'ResoluteMarket',
+    NewCouncil = 'NewCouncil',
 }
 
 export enum ProposalStatus {
