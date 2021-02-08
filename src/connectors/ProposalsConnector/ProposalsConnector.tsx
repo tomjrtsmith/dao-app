@@ -10,10 +10,11 @@ import { ProposalFormValues } from '../../services/ProposalsService';
 export default function ProposalsConnector() {
     const dispatch = useDispatch();
     const proposals = useSelector((store: Reducers) => store.proposals.proposals);
+    const hasMoreProposals = useSelector((store: Reducers) => store.proposals.hasMoreProposals);
     const markets = useSelector((store: Reducers) => store.proposals.expiredMarkets);
 
     useEffect(() => {
-        dispatch(loadProposals());
+        dispatch(loadProposals(true));
         dispatch(loadExpiredMarkets());
     }, [dispatch]);
     
@@ -33,6 +34,11 @@ export default function ProposalsConnector() {
         dispatch(finalizeProposal(id.toString()));
     }
 
+    function handleRequestMoreProposals() {
+        console.log('More!');
+        dispatch(loadProposals());
+    }
+
     return (
         <ProposalsOverview
             onProposalSubmit={handleSubmit} 
@@ -41,6 +47,8 @@ export default function ProposalsConnector() {
             onYesClick={handleYesClick}
             onNoClick={handleNoClick}
             onFinalizeClick={handleFinalizeClick}
+            hasMoreProposals={hasMoreProposals}
+            onRequestMoreProposals={handleRequestMoreProposals}
         />
     );
 }

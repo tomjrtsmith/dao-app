@@ -4,12 +4,14 @@ import { Proposal } from '../../models/Proposal';
 
 export type ProposalsState = Readonly<{
     proposals: Proposal[];
+    hasMoreProposals: boolean;
     expiredMarkets: MarketViewModel[];
     loading: boolean;
     errors: string[];
 }>;
 
 const initialState: ProposalsState = {
+    hasMoreProposals: true,
     proposals: [],
     expiredMarkets: [],
     loading: false,
@@ -38,6 +40,12 @@ const proposalsSlice = createSlice({
                 errors: action.payload,
             });
         },
+        setProposalsHasMore(state: ProposalsState, action: PayloadAction<boolean>): ProposalsState {
+            return ({
+                ...state,
+                hasMoreProposals: action.payload,
+            });
+        },
         setProposalsExpiredMarkets(state: ProposalsState, action: PayloadAction<MarketViewModel[]>): ProposalsState {
             return ({
                 ...state,
@@ -52,6 +60,7 @@ export const {
     setProposalsLoading,
     setProposalsErrors,
     setProposalsExpiredMarkets,
+    setProposalsHasMore,
 } = proposalsSlice.actions;
 
 export default proposalsSlice.reducer;

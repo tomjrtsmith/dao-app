@@ -3,7 +3,8 @@ import createDaoContract from "../../services/contract/DaoContract";
 import { getExpiredMarkets } from "../../services/MarketService";
 import { payoutNumeratorStringToPercentages, percentagesToDenom, ProposalFormValues } from "../../services/ProposalsService";
 import trans from "../../translation/trans";
-import { setProposals, setProposalsExpiredMarkets, setProposalsLoading } from "./proposals";
+import { Reducers } from "../reducers";
+import { setProposals, setProposalsExpiredMarkets, setProposalsHasMore, setProposalsLoading } from "./proposals";
 
 export function createProposal(values: ProposalFormValues) {
     return async (dispatch: Function) => {
@@ -28,15 +29,32 @@ export function createProposal(values: ProposalFormValues) {
     }
 }
 
-export function loadProposals() {
-    return async (dispatch: Function) => {
+export function loadProposals(reset = false) {
+    return async (dispatch: Function, getState: () => Reducers) => {
         const contract = await createDaoContract();
-
+        const limit = 10;
+        
+        if (reset) {
+            dispatch(setProposals([]))
+        }
+        
         dispatch(setProposalsLoading(true));
+        
+        const state = getState();
+        const currentLoadedProposals = state.proposals.proposals;
+        const offset = currentLoadedProposals.length.toString();
+        const proposals = await contract.getProposals(offset, limit.toString());
 
-        const proposals = await contract.getProposals();
+        if (proposals.length === limit) {
+            dispatch(setProposalsHasMore(true));
+        } else {
+            dispatch(setProposalsHasMore(false));
+        }
 
-        dispatch(setProposals(proposals));
+        dispatch(setProposals([
+            ...state.proposals.proposals,
+            ...proposals,
+        ]));
         dispatch(setProposalsLoading(false));
     }
 }
