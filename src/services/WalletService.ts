@@ -44,7 +44,7 @@ export function getNetworkConfig(networkName: any, nodeUrl?: string): NetworkCon
                 initialBalance: "100000000"
             };
     }
-
+    console.log(process.env, network);
     return network;
 }
 
