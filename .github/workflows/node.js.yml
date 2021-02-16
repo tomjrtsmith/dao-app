@@ -26,9 +26,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: echo "REACT_APP_API_URL = '$REACT_APP_API_URL'" >> .env
-    - run: echo "REACT_APP_API_URL = '$REACT_APP_DAO_ACCOUNT_ID'" >> .env
     - run: cp .env.example .env
+    - run: echo "REACT_APP_API_URL = '$REACT_APP_API_URL'" >> .env
+    - run: echo "REACT_APP_DAO_ACCOUNT_ID = '$REACT_APP_DAO_ACCOUNT_ID'" >> .env
     - run: npm run build --if-present
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
