@@ -22,10 +22,19 @@ interface NetworkConfig {
     initialBalance: string
 }
 
-export function getNetworkConfig(networkName: string, nodeUrl?: string): NetworkConfig {
+export function getNetworkConfig(networkName: any, nodeUrl?: string): NetworkConfig {
     let network: NetworkConfig;
 
     switch (networkName) {
+        case "mainnet" :
+            network = {
+                networkId: 'mainnet',
+                nodeUrl: nodeUrl || 'https://rpc.mainnet.near.org',
+                contractName: null,
+                walletUrl: 'https://wallet.near.org',
+                initialBalance: "100000000"
+            };
+            break;
         default:
             network = {
                 networkId: 'testnet',
@@ -36,6 +45,8 @@ export function getNetworkConfig(networkName: string, nodeUrl?: string): Network
             };
     }
 
+    console.log(network)
+
     return network;
 }
 
@@ -45,8 +56,8 @@ export async function connectNear() {
     if (nearInstance) {
         return nearInstance;
     }
-
-    const networkConfig = getNetworkConfig('testnet');
+    console.log(process.env)
+    const networkConfig = getNetworkConfig(process.env.REACT_APP_NETWORK);
     nearInstance = await connect({
         ...networkConfig,
         deps: {
