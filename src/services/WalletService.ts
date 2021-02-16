@@ -73,7 +73,6 @@ export async function connectWallet(): Promise<WalletConnection> {
     }
 
     const near = await connectNear();
-    const contract = process.env.REACT_APP_DAO_ACCOUNT_ID as string;
-    walletConnection = new WalletConnection(near, contract);
+    walletConnection = new WalletConnection(near, NULL_CONTRACT);
     return walletConnection;
 }
