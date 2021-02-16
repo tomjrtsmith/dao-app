@@ -45,8 +45,6 @@ export function getNetworkConfig(networkName: any, nodeUrl?: string): NetworkCon
             };
     }
 
-    console.log(network)
-
     return network;
 }
 
@@ -56,7 +54,6 @@ export async function connectNear() {
     if (nearInstance) {
         return nearInstance;
     }
-    console.log(process.env)
     const networkConfig = getNetworkConfig(process.env.REACT_APP_NETWORK);
     nearInstance = await connect({
         ...networkConfig,
