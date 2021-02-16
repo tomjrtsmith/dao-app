@@ -19,7 +19,7 @@
     "resoluteMarketForm.input.marketId": "Market id",
     "resoluteMarketForm.input.payoutNumerator": "Payout numerator",
     "resoluteMarketForm.input.payoutNumeratorHelper": "Seperate percentages with a space example: 50 0 50",
-    "resoluteMarketForm.error.not100": "Outcomes should equals 100% together",
+    "resoluteMarketForm.error.not100": "Outcomes should be a cumulative sum of 100%",
 
     "newCouncilForm.input.accountId": "Account id",
     "newCouncilForm.input.description": "Description of proposal",
