@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI: false
-      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-      REACT_APP_DAO_ACCOUNT_ID: ${{ secrets.REACT_APP_DAO_ACCOUNT_ID }}
 
     strategy:
       matrix:
