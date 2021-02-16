@@ -1,12 +1,11 @@
-import { NULL_CONTRACT } from "../config";
 import { Account } from "../models/Account";
 import trans from "../translation/trans";
 import { connectWallet } from "./WalletService";
 
 export async function signUserIn() {
     const connectedWallet = await connectWallet();
-
-    connectedWallet.requestSignIn(NULL_CONTRACT, trans('global.appName'));
+    const contract: string  = process.env.REACT_APP_DAO_ACCOUNT_ID as string;
+    connectedWallet.requestSignIn(contract, trans('global.appName'));
 }
 
 export async function getAccountInfo(): Promise<Account | null> {
