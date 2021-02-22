@@ -30,8 +30,8 @@
     "proposalInfo.label.status": "Status: :status",
     "proposalInfo.label.creator": "Creator: :creator",
     "proposalInfo.label.votePeriodEnd": "Vote period end: :date",
-    "proposalInfo.action.voteYes": "Yes (:amount)",
-    "proposalInfo.action.voteNo": "No (:amount)",
+    "proposalInfo.action.voteYes": "Approve (:amount)",
+    "proposalInfo.action.voteNo": "Reject (:amount)",
     "proposalInfo.action.finalize": "Finalize",
 
     "proposalsOverview.create": "Create proposal",
