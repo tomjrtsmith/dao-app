@@ -8,6 +8,8 @@ import trans from '../../translation/trans';
 import ProposalDialog from '../ProposalDialog';
 import ProposalInfo from '../ProposalInfo';
 
+import s from './ProposalsOverview.module.scss';
+
 interface Props {
     onProposalSubmit: (values: ProposalFormValues) => void;
     proposals: Proposal[];
@@ -47,6 +49,7 @@ export default function ProposalsOverview({
                 next={onRequestMoreProposals}
                 hasMore={hasMoreProposals}
                 loader={<div />}
+                className={s.infiniteScroll}
             >
                 {proposals.map((proposal, index) => (
                     <ProposalInfo
