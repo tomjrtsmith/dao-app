@@ -13,6 +13,9 @@ export async function getExpiredMarkets(): Promise<MarketViewModel[]> {
                             description
                             outcome_tags
                             extra_info
+                            pool {
+                                collateral_token_id
+                            }
                         }
                     }
                 }

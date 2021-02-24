@@ -31,9 +31,10 @@ export default function ResoluteMarketForm({
 
         onChange({
             ...values,
-            marketId: market?.id || '',
-            marketDescription: market?.description || '',
-            payoutNumerators: market?.outcomeTags.map(_ => 0) || [],
+            marketId: market?.id ?? '',
+            marketDescription: market?.description ?? '',
+            collateralTokenId: market?.collateralTokenId ?? '',
+            payoutNumerators: market?.outcomeTags.map(_ => 0) ?? [],
         });
     }
 

@@ -2,6 +2,7 @@ import { ProposalKindType } from "../../models/Proposal";
 import createDaoContract from "../../services/contract/DaoContract";
 import { getExpiredMarkets } from "../../services/MarketService";
 import { percentagesToDenom, ProposalFormValues } from "../../services/ProposalsService";
+import { connectSdk } from "../../services/WalletService";
 import trans from "../../translation/trans";
 import { Reducers } from "../reducers";
 import { setProposals, setProposalsExpiredMarkets, setProposalsHasMore, setProposalsLoading } from "./proposals";
@@ -9,9 +10,11 @@ import { setProposals, setProposalsExpiredMarkets, setProposalsHasMore, setPropo
 export function createProposal(values: ProposalFormValues) {
     return async (dispatch: Function) => {
         const contract = await createDaoContract();
+        const sdk = await connectSdk();
         
         if (values.type === ProposalKindType.ResoluteMarket) {
-            const percentagesInToken = percentagesToDenom(values.resoluteMarket.payoutNumerators);
+            const tokenMetadata = await sdk.getTokenMetadata(values.resoluteMarket.collateralTokenId);
+            const percentagesInToken = percentagesToDenom(values.resoluteMarket.payoutNumerators, tokenMetadata.decimals);
 
             contract.createResoluteMarketProposal(
                 trans('proposal.resoluteMarket.description', {

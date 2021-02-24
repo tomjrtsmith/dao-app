@@ -3,6 +3,9 @@ export interface GraphMarketResponse {
     id: string;
     outcome_tags: string[];
     extra_info: string;
+    pool: {
+        collateral_token_id: string;
+    }
 }
 
 export interface MarketViewModel {
@@ -10,6 +13,7 @@ export interface MarketViewModel {
     description: string;
     outcomeTags: string[];
     extraInfo: string;
+    collateralTokenId: string;
 }
 
 export function transformToMarketViewModel(
@@ -20,5 +24,6 @@ export function transformToMarketViewModel(
         description: graphResponse.description,
         outcomeTags: graphResponse.outcome_tags,
         extraInfo: graphResponse.extra_info,
+        collateralTokenId: graphResponse.pool.collateral_token_id,
     }
 }

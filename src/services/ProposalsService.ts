@@ -19,7 +19,7 @@ export function payoutNumeratorStringToPercentages(rawValue: string) {
     return rawValue.split(' ').map(v => Number(v.trim()));
 }
 
-export function percentagesToDenom(percentages: number[]) {
-    const hunderdPercent = new Big(10).pow(24);
+export function percentagesToDenom(percentages: number[], decimals: number) {
+    const hunderdPercent = new Big(10).pow(decimals);
     return percentages.map(num => hunderdPercent.mul(num / 100).toFixed(0));
 }

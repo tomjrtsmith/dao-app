@@ -2,6 +2,7 @@ export interface ResoluteMarketFormValues {
     isInvalidMarket: boolean;
     marketId: string;
     marketDescription: string;
+    collateralTokenId: string;
     payoutNumerators: number[];
 }
 
@@ -10,6 +11,7 @@ export default function createDefaultResoluteMarketFormValues(): ResoluteMarketF
         isInvalidMarket: false,
         marketId: '',
         marketDescription: '',
+        collateralTokenId: '',
         payoutNumerators: [],
     };
 }
