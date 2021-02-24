@@ -20,6 +20,6 @@ export function payoutNumeratorStringToPercentages(rawValue: string) {
 }
 
 export function percentagesToDenom(percentages: number[]) {
-    const hunderdPercent = new Big(10).pow(18);
+    const hunderdPercent = new Big(10).pow(24);
     return percentages.map(num => hunderdPercent.mul(num / 100).toFixed(0));
 }
