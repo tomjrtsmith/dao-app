@@ -34,7 +34,7 @@ export function createProposal(values: ProposalFormValues) {
 export function loadProposals(reset = false) {
     return async (dispatch: Function, getState: () => Reducers) => {
         const contract = await createDaoContract();
-        const limit = 10;
+        const limit = 1000;
         
         if (reset) {
             dispatch(setProposals([]))
