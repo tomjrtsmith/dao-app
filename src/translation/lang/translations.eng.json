@@ -7,6 +7,7 @@
     "home.title": "Proposals",
 
     "menu.loggedInAs": "Hello :accountId",
+    "menu.login": "Login",
     "menu.logout": "Logout",
     "menu.item.home": "Home",
     "menu.item.council": "Council",
