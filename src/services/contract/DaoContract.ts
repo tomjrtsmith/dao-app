@@ -9,8 +9,8 @@ class DaoContract {
 
     constructor(account: Account) {
         this.contract = new Contract(account, DAO_ACCOUNT_ID, {
-            viewMethods: ['get_council', 'get_bond', 'get_proposals'],
-            changeMethods: ['add_proposal', 'vote', 'finalize'],
+            viewMethods: ['get_council', 'get_bond', 'get_proposals', 'get_proposal'],
+            changeMethods: ['add_proposal', 'vote', 'finalize', 'finalize_external'],
         });
     }
 
@@ -33,6 +33,14 @@ class DaoContract {
         const result = await this.contract.get_proposals({ 
             from_index,
             limit,
+        });
+
+        return result;
+    }
+    async getProposal(id: string): Promise<Proposal> {
+        // @ts-ignore
+        const result = await this.contract.get_proposal({ 
+            id
         });
 
         return result;
@@ -86,11 +94,19 @@ class DaoContract {
         }, MAX_GAS, new BN(0));
     }
 
-    finalize(proposalId: string) {
-        // @ts-ignore
-        this.contract.finalize({
-            id: proposalId,
-        }, MAX_GAS, new BN(0));
+    async finalize(proposalId: string) {
+        const proposal = await this.getProposal(proposalId);
+        if (proposal.kind.type === "ResoluteMarket" || proposal.kind.type === "AddTokenWhitelist") {
+            // @ts-ignore
+            this.contract.finalize_external({
+                id: proposalId,
+            }, MAX_GAS, new BN(0));
+        } else {
+            // @ts-ignore
+            this.contract.finalize({
+                id: proposalId,
+            }, MAX_GAS, new BN(0));
+        }
     }
 }
 
