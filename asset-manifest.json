@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "https://fluxprotocol.github.io/dao-app/static/css/main.22c3a9d2.chunk.css",
-    "main.js": "https://fluxprotocol.github.io/dao-app/static/js/main.956dc69d.chunk.js",
-    "main.js.map": "https://fluxprotocol.github.io/dao-app/static/js/main.956dc69d.chunk.js.map",
+    "main.js": "https://fluxprotocol.github.io/dao-app/static/js/main.ac941d5b.chunk.js",
+    "main.js.map": "https://fluxprotocol.github.io/dao-app/static/js/main.ac941d5b.chunk.js.map",
     "runtime-main.js": "https://fluxprotocol.github.io/dao-app/static/js/runtime-main.8cbe9eb2.js",
     "runtime-main.js.map": "https://fluxprotocol.github.io/dao-app/static/js/runtime-main.8cbe9eb2.js.map",
-    "static/js/2.d16a64d3.chunk.js": "https://fluxprotocol.github.io/dao-app/static/js/2.d16a64d3.chunk.js",
-    "static/js/2.d16a64d3.chunk.js.map": "https://fluxprotocol.github.io/dao-app/static/js/2.d16a64d3.chunk.js.map",
+    "static/js/2.be2b2387.chunk.js": "https://fluxprotocol.github.io/dao-app/static/js/2.be2b2387.chunk.js",
+    "static/js/2.be2b2387.chunk.js.map": "https://fluxprotocol.github.io/dao-app/static/js/2.be2b2387.chunk.js.map",
     "index.html": "https://fluxprotocol.github.io/dao-app/index.html",
     "static/css/main.22c3a9d2.chunk.css.map": "https://fluxprotocol.github.io/dao-app/static/css/main.22c3a9d2.chunk.css.map",
-    "static/js/2.d16a64d3.chunk.js.LICENSE.txt": "https://fluxprotocol.github.io/dao-app/static/js/2.d16a64d3.chunk.js.LICENSE.txt"
+    "static/js/2.be2b2387.chunk.js.LICENSE.txt": "https://fluxprotocol.github.io/dao-app/static/js/2.be2b2387.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.8cbe9eb2.js",
-    "static/js/2.d16a64d3.chunk.js",
+    "static/js/2.be2b2387.chunk.js",
     "static/css/main.22c3a9d2.chunk.css",
-    "static/js/main.956dc69d.chunk.js"
+    "static/js/main.ac941d5b.chunk.js"
   ]
 }
