@@ -6,7 +6,7 @@ import Dialog from '../../compositions/Dialog';
 import trans from '../../translation/trans';
 import ResoluteMarketForm from './proposalsForms/ResoluteMarketForm';
 import { ProposalKindType } from '../../models/Proposal';
-import createDefaultProposalFormValues, { NewCouncilFormValues } from './services/createDefaultProposalFormValues';
+import createDefaultProposalFormValues, { AddTokenWhitelistFormValues, NewCouncilFormValues } from './services/createDefaultProposalFormValues';
 import { ResoluteMarketFormValues } from './services/createDefaultResoluteMarketFormValues';
 import { ProposalFormValues } from '../../services/ProposalsService';
 import { MarketViewModel } from '../../models/Market';
@@ -49,7 +49,7 @@ export default function ProposalDialog({
         });
     }
 
-    function handleAddTokenWhitelistChange(addTokenWhitelist: NewCouncilFormValues) {
+    function handleAddTokenWhitelistChange(addTokenWhitelist: AddTokenWhitelistFormValues) {
         setFormValues({
             ...formValues,
             addTokenWhitelist,

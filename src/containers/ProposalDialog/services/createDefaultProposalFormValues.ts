@@ -10,6 +10,7 @@ export interface NewCouncilFormValues {
 export interface AddTokenWhitelistFormValues {
     accountId: string;
     description: string;
+    decimals: number;
 }
 
 export default function createDefaultProposalFormValues(): ProposalFormValues {
@@ -21,6 +22,7 @@ export default function createDefaultProposalFormValues(): ProposalFormValues {
         addTokenWhitelist: {
             accountId: '',
             description: '',
+            decimals: 18,
         },
         resoluteMarket: createDefaultResoluteMarketFormValues(),
         type: ProposalKindType.ResoluteMarket,

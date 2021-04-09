@@ -73,13 +73,14 @@ class DaoContract {
         }, MAX_GAS, STORAGE_BASE);
     }
 
-    async createAddTokenToWhitelistProposal(description: string, accountId: string) {
+    async createAddTokenToWhitelistProposal(description: string, accountId: string, decimals: number) {
         // @ts-ignore
         this.contract.add_proposal({
             proposal: {
                 description,
                 kind: {
                     to_add: accountId,
+                    decimals,
                     type: 'AddTokenWhitelist',
                 }
             }

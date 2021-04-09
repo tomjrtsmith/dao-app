@@ -28,6 +28,7 @@
 
     "addTokenWhitelist.input.accountId": "Token address id",
     "addTokenWhitelist.input.description": "Description of proposal",
+    "addTokenWhitelist.input.decimals": "Token decimals",
 
     "proposalInfo.label.status": "Status: :status",
     "proposalInfo.label.creator": "Creator: :creator",

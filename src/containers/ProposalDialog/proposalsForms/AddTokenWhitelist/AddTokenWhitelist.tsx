@@ -27,6 +27,13 @@ export default function AddTokenWhitelist({
         });
     }
 
+    function handleDecimalsChange(event: ChangeEvent<HTMLInputElement>) {
+        onChange({
+            ...values,
+            decimals: Number(event.currentTarget.value),
+        });
+    }
+
     return (
         <div>
             <div>
@@ -34,6 +41,14 @@ export default function AddTokenWhitelist({
                     label={trans('addTokenWhitelist.input.accountId')}
                     onChange={handleAccountIdChange}
                     value={values.accountId}
+                />
+            </div>
+            <div>
+                <TextField
+                    label={trans('addTokenWhitelist.input.decimals')}
+                    type="number"
+                    onChange={handleDecimalsChange}
+                    value={values.decimals}
                 />
             </div>
             <div>
