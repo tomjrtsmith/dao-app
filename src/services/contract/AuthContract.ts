@@ -10,7 +10,7 @@ class AuthContract {
     constructor(account: Account) {
         this.contract = new Contract(account, AUTH_ACCOUNT_ID, {
             viewMethods: ['is_authenticated', 'can_authenticate'],
-            changeMethods: ['add_authenticatee'],
+            changeMethods: ['add_authenticatees'],
         });
     }
 
@@ -28,10 +28,10 @@ class AuthContract {
         return result;
     }
 
-    async addAuthenticatee(accountId: string) {
+    async addAuthenticatees(accountId: string[]) {
         // @ts-ignore
-        const result = await this.contract.add_authenticatee({ 
-            account_id: accountId
+        const result = await this.contract.add_authenticatees({ 
+            account_ids: accountId
         }, MAX_GAS, new BN(0))
 
         return result;

@@ -16,11 +16,11 @@ export function loadAuth(accountId: string) {
     }
 }
 
-export function authUser(accountId: string) {
+export function authUser(accountId: string[]) {
     return async (dispatch: Function) => {
         const contract = await createAuthContract();
         dispatch(setAuthLoading(true));
-        await contract.addAuthenticatee(accountId);
+        await contract.addAuthenticatees(accountId);
         dispatch(setAuthLoading(false));
     }
 }

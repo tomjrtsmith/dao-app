@@ -19,7 +19,9 @@ export default function CouncilConnector() {
         if (userIsAuth) {
             return console.error("user is already authenticated")
         }
-        dispatch(authUser(accountId));
+        dispatch(authUser(accountId.split(/(?:,| )+/) 
+
+        ));
     }
 
     return (
