@@ -3,6 +3,7 @@ export interface GraphMarketResponse {
     id: string;
     outcome_tags: string[];
     extra_info: string;
+    is_scalar: boolean;
     pool: {
         collateral_token_id: string;
     }
@@ -10,6 +11,7 @@ export interface GraphMarketResponse {
 
 export interface MarketViewModel {
     id: string;
+    isScalar: boolean;
     description: string;
     outcomeTags: string[];
     extraInfo: string;
@@ -21,6 +23,7 @@ export function transformToMarketViewModel(
 ): MarketViewModel {
     return {
         id: graphResponse.id,
+        isScalar: graphResponse.is_scalar,
         description: graphResponse.description,
         outcomeTags: graphResponse.outcome_tags,
         extraInfo: graphResponse.extra_info,

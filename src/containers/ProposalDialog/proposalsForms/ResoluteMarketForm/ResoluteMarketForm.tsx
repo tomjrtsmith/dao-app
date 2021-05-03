@@ -1,7 +1,9 @@
+import FluxSdk from '@fluxprotocol/amm-sdk';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+import Big from 'big.js';
 import React, { ChangeEvent } from 'react';
 import OptionSwitch from '../../../../components/OptionSwitch';
 import { MarketViewModel } from '../../../../models/Market';
@@ -48,6 +50,25 @@ export default function ResoluteMarketForm({
         });
     }
 
+    function handleScalarChange(value: string) {
+        try {
+            onChange({
+                ...values,
+                scalarValue: value,
+            });
+
+            const result = FluxSdk.utils.calcScalarDistributionPercentages(new Big(value), new Big(selectedMarket?.outcomeTags[0] ?? '0'), new Big(selectedMarket?.outcomeTags[1] ?? '0'));
+    
+            onChange({
+                ...values,
+                scalarValue: value,
+                payoutNumerators: result,
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const selectedMarket = markets.find(market => market.id === values.marketId);
     const percentagesTogether = values.payoutNumerators.reduce((prev, current) => prev + current, 0);
 
@@ -71,7 +92,7 @@ export default function ResoluteMarketForm({
                 onChange={handleMarketTypeChange}
             />
             <div>
-                {!values.isInvalidMarket && (
+                {!values.isInvalidMarket && !selectedMarket?.isScalar && (
                     <div>
                         {selectedMarket?.outcomeTags.map((outcome, index) => (
                             <div key={index}>
@@ -97,6 +118,23 @@ export default function ResoluteMarketForm({
                     </div>
                 )}
 
+                {!values.isInvalidMarket && selectedMarket?.isScalar && (
+                    <div>
+                        <div>Short bound: {selectedMarket.outcomeTags[0]}</div>
+                        <div>Long bound: {selectedMarket.outcomeTags[1]}</div>
+
+                        <TextField
+                            label={trans('resoluteMarketForm.input.scalarValue')}
+                            onChange={(event) => handleScalarChange(event.target.value)}
+                            value={values.scalarValue}
+                            type="number"
+                        />
+
+                        <div>Payout %</div>
+                        <div>Short: {values.payoutNumerators[0]}</div>
+                        <div>Long: {values.payoutNumerators[1]}</div>
+                    </div>
+                )}
             </div>
         </div>
     );

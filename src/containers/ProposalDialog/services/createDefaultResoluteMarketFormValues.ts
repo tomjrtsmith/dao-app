@@ -4,6 +4,7 @@ export interface ResoluteMarketFormValues {
     marketDescription: string;
     collateralTokenId: string;
     payoutNumerators: number[];
+    scalarValue: string;
 }
 
 export default function createDefaultResoluteMarketFormValues(): ResoluteMarketFormValues {
@@ -13,5 +14,6 @@ export default function createDefaultResoluteMarketFormValues(): ResoluteMarketF
         marketDescription: '',
         collateralTokenId: '',
         payoutNumerators: [],
+        scalarValue: '0',
     };
 }

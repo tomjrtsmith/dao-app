@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import FluxSdk from "@fluxprotocol/amm-sdk";
 import { GraphMarketResponse, MarketViewModel, transformToMarketViewModel } from "../models/Market";
 import { graphqlClient } from "./GraphQLService";
 
@@ -12,6 +13,7 @@ export async function getExpiredMarkets(): Promise<MarketViewModel[]> {
                             id
                             description
                             outcome_tags
+                            is_scalar
                             extra_info
                             pool {
                                 collateral_token_id
