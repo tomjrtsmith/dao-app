@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import FluxSdk from "@fluxprotocol/amm-sdk";
 import { GraphMarketResponse, MarketViewModel, transformToMarketViewModel } from "../models/Market";
 import { graphqlClient } from "./GraphQLService";
 
@@ -25,8 +24,9 @@ export async function getExpiredMarkets(): Promise<MarketViewModel[]> {
         });
 
         const marketsData: GraphMarketResponse[] = result.data.markets.items;
-        
-        return marketsData.map(market => transformToMarketViewModel(market));
+        const promises = marketsData.map(market => transformToMarketViewModel(market));
+
+        return Promise.all(promises);
     } catch (error) {
         console.error('[getExpiredMarkets]', error);
         return [];

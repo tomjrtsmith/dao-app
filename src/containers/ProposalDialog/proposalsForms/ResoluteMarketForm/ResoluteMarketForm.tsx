@@ -7,6 +7,7 @@ import Big from 'big.js';
 import React, { ChangeEvent } from 'react';
 import OptionSwitch from '../../../../components/OptionSwitch';
 import { MarketViewModel } from '../../../../models/Market';
+import { percentagesToDenom } from '../../../../services/ProposalsService';
 import trans from '../../../../translation/trans';
 import { ResoluteMarketFormValues } from '../../services/createDefaultResoluteMarketFormValues';
 
@@ -71,6 +72,7 @@ export default function ResoluteMarketForm({
 
     const selectedMarket = markets.find(market => market.id === values.marketId);
     const percentagesTogether = values.payoutNumerators.reduce((prev, current) => prev + current, 0);
+    const denom = percentagesToDenom(values.payoutNumerators, selectedMarket?.decimals ?? 0);
 
     return (
         <div>
@@ -92,7 +94,22 @@ export default function ResoluteMarketForm({
                 onChange={handleMarketTypeChange}
             />
             <div>
-                {!values.isInvalidMarket && !selectedMarket?.isScalar && (
+                {!values.isInvalidMarket && selectedMarket?.isScalar && (
+                    <div>
+                        <div>Short bound: {selectedMarket.outcomeTags[0]}</div>
+                        <div>Long bound: {selectedMarket.outcomeTags[1]}</div>
+                        <br />
+
+                        <TextField
+                            label={trans('resoluteMarketForm.input.scalarValue')}
+                            onChange={(event) => handleScalarChange(event.target.value)}
+                            value={values.scalarValue}
+                            type="number"
+                        />
+                    </div>
+                )}
+
+                {!values.isInvalidMarket && (
                     <div>
                         {selectedMarket?.outcomeTags.map((outcome, index) => (
                             <div key={index}>
@@ -118,21 +135,13 @@ export default function ResoluteMarketForm({
                     </div>
                 )}
 
-                {!values.isInvalidMarket && selectedMarket?.isScalar && (
+                {!values.isInvalidMarket && (
                     <div>
-                        <div>Short bound: {selectedMarket.outcomeTags[0]}</div>
-                        <div>Long bound: {selectedMarket.outcomeTags[1]}</div>
-
-                        <TextField
-                            label={trans('resoluteMarketForm.input.scalarValue')}
-                            onChange={(event) => handleScalarChange(event.target.value)}
-                            value={values.scalarValue}
-                            type="number"
-                        />
-
-                        <div>Payout %</div>
-                        <div>Short: {values.payoutNumerators[0]}</div>
-                        <div>Long: {values.payoutNumerators[1]}</div>
+                        <br />
+                        <div>Distribution will be:</div>
+                        {denom.map((amount, index) => (
+                            <div>"{selectedMarket?.outcomeTags[index]}" : {amount}</div>
+                        ))}
                     </div>
                 )}
             </div>

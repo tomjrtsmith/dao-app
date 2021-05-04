@@ -53,7 +53,10 @@ class DaoContract {
                 description,
                 kind: {
                     market_id: marketId,
-                    payout_numerator: payoutNumerator,
+                    payout_numerator: [
+                        '772600000000000000000000',
+                        '227400000000000000000000',
+                    ],
                     type: 'ResoluteMarket',
                 }
             }

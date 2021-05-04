@@ -1,3 +1,5 @@
+import { getTokenMetadata } from "../services/TokenService"
+
 export interface GraphMarketResponse {
     description: string;
     id: string;
@@ -16,11 +18,14 @@ export interface MarketViewModel {
     outcomeTags: string[];
     extraInfo: string;
     collateralTokenId: string;
+    decimals: number;
 }
 
-export function transformToMarketViewModel(
+export async function transformToMarketViewModel(
     graphResponse: GraphMarketResponse,
-): MarketViewModel {
+): Promise<MarketViewModel> {
+    const tokenMetadata = await getTokenMetadata(graphResponse.pool.collateral_token_id);
+
     return {
         id: graphResponse.id,
         isScalar: graphResponse.is_scalar,
@@ -28,5 +33,6 @@ export function transformToMarketViewModel(
         outcomeTags: graphResponse.outcome_tags,
         extraInfo: graphResponse.extra_info,
         collateralTokenId: graphResponse.pool.collateral_token_id,
+        decimals: tokenMetadata.decimals,
     }
 }
