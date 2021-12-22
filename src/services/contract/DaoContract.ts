@@ -73,6 +73,19 @@ class DaoContract {
         }, MAX_GAS, STORAGE_BASE);
     }
 
+    async createRemoveCouncilProposal(description: string, accountId: string) {
+        // @ts-ignore
+        this.contract.add_proposal({
+            proposal: {
+                description,
+                kind: {
+                    target: accountId,
+                    type: 'RemoveCouncil',
+                }
+            }
+        }, MAX_GAS, STORAGE_BASE);
+    }
+
     async createAddTokenToWhitelistProposal(description: string, accountId: string, decimals: number) {
         // @ts-ignore
         this.contract.add_proposal({

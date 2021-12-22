@@ -4,6 +4,7 @@ export enum ProposalKindType {
     ResoluteMarket = 'ResoluteMarket',
     NewCouncil = 'NewCouncil',
     AddTokenWhitelist = 'AddTokenWhitelist',
+    RemoveCouncil = 'RemoveCouncil'
 }
 
 export enum ProposalStatus {

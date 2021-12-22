@@ -30,6 +30,8 @@ export function createProposal(values: ProposalFormValues) {
                 values.addTokenWhitelist.accountId, 
                 values.addTokenWhitelist.decimals
             );
+        } else if (values.type === ProposalKindType.RemoveCouncil) {
+            contract.createRemoveCouncilProposal(values.removeCouncil.description, values.removeCouncil.accountId)
         }
     }
 }

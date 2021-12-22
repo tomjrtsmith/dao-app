@@ -6,12 +6,13 @@ import Dialog from '../../compositions/Dialog';
 import trans from '../../translation/trans';
 import ResoluteMarketForm from './proposalsForms/ResoluteMarketForm';
 import { ProposalKindType } from '../../models/Proposal';
-import createDefaultProposalFormValues, { AddTokenWhitelistFormValues, NewCouncilFormValues } from './services/createDefaultProposalFormValues';
+import createDefaultProposalFormValues, { AddTokenWhitelistFormValues, NewCouncilFormValues, RemoveCouncilFormValues } from './services/createDefaultProposalFormValues';
 import { ResoluteMarketFormValues } from './services/createDefaultResoluteMarketFormValues';
 import { ProposalFormValues } from '../../services/ProposalsService';
 import { MarketViewModel } from '../../models/Market';
 import NewCouncilForm from './proposalsForms/NewCouncilForm';
 import AddTokenWhitelist from './proposalsForms/AddTokenWhitelist';
+import RemoveCouncilForm from './proposalsForms/RemoveCouncilForm';
 
 interface Props {
     open: boolean;
@@ -56,6 +57,13 @@ export default function ProposalDialog({
         });
     }
 
+    function handleRemoveCouncilChange(removeCouncil: RemoveCouncilFormValues) {
+        setFormValues({
+            ...formValues,
+            removeCouncil,
+        });
+    }
+
     return (
         <Dialog 
             open={open} 
@@ -66,6 +74,7 @@ export default function ProposalDialog({
             <Select value={formValues.type} onChange={handleSelectChange}>
                 <MenuItem value={ProposalKindType.ResoluteMarket}>{trans('proposalDialog.types.resoluteMarket')}</MenuItem>
                 <MenuItem value={ProposalKindType.NewCouncil}>{trans('proposalDialog.types.newCouncil')}</MenuItem>
+                <MenuItem value={ProposalKindType.RemoveCouncil}>{trans('proposalDialog.types.removeCouncil')}</MenuItem>
                 <MenuItem value={ProposalKindType.AddTokenWhitelist}>{trans('proposalDialog.types.addTokenWhitelist')}</MenuItem>
             </Select>
 
@@ -88,6 +97,13 @@ export default function ProposalDialog({
                 <AddTokenWhitelist 
                     values={formValues.addTokenWhitelist}
                     onChange={handleAddTokenWhitelistChange}
+                />
+            )}
+
+            {formValues.type === ProposalKindType.RemoveCouncil && (
+                <RemoveCouncilForm
+                    values={formValues.removeCouncil}
+                    onChange={handleRemoveCouncilChange}
                 />
             )}
         </Dialog>

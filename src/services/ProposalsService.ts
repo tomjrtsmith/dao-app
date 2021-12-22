@@ -1,10 +1,11 @@
 import Big from 'big.js';
-import { AddTokenWhitelistFormValues, NewCouncilFormValues } from '../containers/ProposalDialog/services/createDefaultProposalFormValues';
+import { AddTokenWhitelistFormValues, NewCouncilFormValues, RemoveCouncilFormValues } from '../containers/ProposalDialog/services/createDefaultProposalFormValues';
 
 import { ResoluteMarketFormValues } from "../containers/ProposalDialog/services/createDefaultResoluteMarketFormValues";
 import { ProposalKindType } from "../models/Proposal";
 
 export interface ProposalFormValues {
+    removeCouncil: RemoveCouncilFormValues;
     newCouncil: NewCouncilFormValues;
     resoluteMarket: ResoluteMarketFormValues;
     addTokenWhitelist: AddTokenWhitelistFormValues;

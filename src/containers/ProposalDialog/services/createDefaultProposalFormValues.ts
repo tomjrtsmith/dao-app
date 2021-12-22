@@ -7,6 +7,11 @@ export interface NewCouncilFormValues {
     description: string;
 }
 
+export interface RemoveCouncilFormValues {
+    accountId: string;
+    description: string;
+}
+
 export interface AddTokenWhitelistFormValues {
     accountId: string;
     description: string;
@@ -15,6 +20,10 @@ export interface AddTokenWhitelistFormValues {
 
 export default function createDefaultProposalFormValues(): ProposalFormValues {
     return {
+        removeCouncil: {
+            accountId: '',
+            description: '',
+        },
         newCouncil: {
             accountId: '',
             description: '',
