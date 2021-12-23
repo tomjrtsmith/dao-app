@@ -65,6 +65,14 @@ export default function ProposalInfo({
                             date: date.toString(),
                         })}
                     </Typography>
+                    <hr />
+                    <Typography gutterBottom variant="body1" component="p">
+                        {Object.keys(proposal.votes).map((account) => (
+                            <div>
+                                <span>{account} - {proposal.votes[account]}</span>
+                            </div>
+                        ))}
+                    </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
